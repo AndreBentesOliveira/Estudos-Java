@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -22,14 +23,17 @@ import java.awt.event.ActionListener;
 public class DrawUi extends JFrame implements ActionListener{
     public DrawUi(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 600);
+        this.setSize(450, 550);
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
 
-        JPanel contentPanel = new JPanel();
+        
         Border mainBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        GridLayout mainGrid = new GridLayout(3, 3, 5, 5);
+        
+        JPanel contentPanel = new JPanel();
         contentPanel.setBorder(mainBorder);
-        contentPanel.setPreferredSize(new Dimension(300, 400));
+        contentPanel.setPreferredSize(new Dimension(400, 500));
         contentPanel.setBackground(Color.gray);
         contentPanel.setLayout(new BorderLayout(10, 10));
 
@@ -41,39 +45,44 @@ public class DrawUi extends JFrame implements ActionListener{
 
         JPanel midPanel = new JPanel();
         midPanel.setBackground(Color.blue); 
-        midPanel.setLayout(new BorderLayout());
+        midPanel.setLayout(new BorderLayout(10,10));
         midPanel.setBounds(0, 100, 100, 400);
         midPanel.setBorder(mainBorder);
         
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(Color.red);
-        buttonsPanel.setLayout(new GridLayout(3, 3, 5, 5));
-        //buttonsPanel.setBounds(0, 0, 50, 50);
+        buttonsPanel.setLayout(new GridLayout(5, 4, 10, 10));
+        buttonsPanel.setBounds(0, 0, 50, 100);
         buttonsPanel.setBorder(mainBorder);
 
-        for (int i = 1; i <= 9; i++) {
+        JPanel operatorsPanel = new JPanel();
+        operatorsPanel.setBackground(Color.MAGENTA);
+        operatorsPanel.setLayout(new GridLayout(4, 1, 5, 30));
+        operatorsPanel.setBounds(100, 100, 100, 100);
+        operatorsPanel.setBorder(mainBorder);
+
+        JPanel topButtonsPanel = new JPanel();
+        topButtonsPanel.setBackground(Color.cyan);
+        topButtonsPanel.setLayout(new GridLayout(1, 4, 10, 5));
+        topButtonsPanel.setBounds(0, 0, 100, 100);
+        topButtonsPanel.setBorder(mainBorder);
+
+        for (int i = 1; i <= 20; i++) {
             JButton button = new JButton();
+            button.setFocusable(false);
             button.setText(String.valueOf(i));
-            button.setPreferredSize(new Dimension(1, 1));
+            button.setPreferredSize(new Dimension(50, 50));
             buttonsPanel.add(button);
             //buttonsPanel.add(new JButton(String.valueOf(i)));
         }
 
-        topPanel.add(numberLabel, BorderLayout.CENTER);
-        contentPanel.add(topPanel, BorderLayout.NORTH);
-        contentPanel.add(midPanel);
-        midPanel.add(buttonsPanel);
-        /*panel.add(new JButton("1"));
-        panel.add(new JButton("2"));
-        panel.add(new JButton("3"));
-        panel.add(new JButton("4"));
-        panel.add(new JButton("5"));
-        panel.add(new JButton("6"));
-        panel.add(new JButton("7"));
-        panel.add(new JButton("8"));
-        panel.add(new JButton("9"));*/
+        
 
         this.add(contentPanel);
+        topPanel.add(numberLabel, BorderLayout.CENTER);
+        contentPanel.add(topPanel, BorderLayout.NORTH);
+        contentPanel.add(midPanel, BorderLayout.CENTER);
+        midPanel.add(buttonsPanel, BorderLayout.CENTER);
         this.setVisible(true);
 
     }

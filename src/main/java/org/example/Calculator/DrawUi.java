@@ -21,12 +21,15 @@ import java.awt.event.ActionListener;
 
 
 public class DrawUi extends JFrame implements ActionListener{
+
+    private JButton[] buttonsArray;
+
     public DrawUi(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 550);
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-
+        buttonsArray = new JButton[20];
         
         Border mainBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         GridLayout mainGrid = new GridLayout(3, 3, 5, 5);
@@ -50,7 +53,7 @@ public class DrawUi extends JFrame implements ActionListener{
         midPanel.setBorder(mainBorder);
         
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(Color.red);
+        //buttonsPanel.setBackground(Color.red);
         buttonsPanel.setLayout(new GridLayout(5, 4, 10, 10));
         buttonsPanel.setBounds(0, 0, 50, 100);
         buttonsPanel.setBorder(mainBorder);
@@ -67,12 +70,28 @@ public class DrawUi extends JFrame implements ActionListener{
         topButtonsPanel.setBounds(0, 0, 100, 100);
         topButtonsPanel.setBorder(mainBorder);
 
-        for (int i = 1; i <= 20; i++) {
-            JButton button = new JButton();
+        String[] buttonsLabel = {
+            "CE", "back", "%", "/",
+            "7", "8", "9", "*",
+            "4", "5", "6", "-",
+            "1", "2", "3", "+",
+            "+/-", "0", ".", "=",
+        };
+
+        for (int i = 0; i <= 19; i++) {
+            /*JButton button = new JButton();
             button.setFocusable(false);
-            button.setText(String.valueOf(i));
+            button.setText(buttonsLabel[i]);
+            System.out.println("Command" + buttonsLabel[i]);
+            button.setActionCommand("Command" + buttonsLabel[i]);
             button.setPreferredSize(new Dimension(50, 50));
-            buttonsPanel.add(button);
+            buttonsPanel.add(button);*/
+
+            JButton btn = new JButton("Button " + (i + 1));
+            btn.addActionListener(this);
+            btn.setActionCommand("Command" + buttonsLabel[i]);
+            buttonsArray[i] = btn;
+            buttonsPanel.add(btn);
             //buttonsPanel.add(new JButton(String.valueOf(i)));
         }
 
@@ -89,8 +108,13 @@ public class DrawUi extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.equals("CommandCE")) {
+            System.out.println(e.getSource() + e.getActionCommand());
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
+        }
     
+    }
 }

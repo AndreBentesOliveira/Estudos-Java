@@ -22,14 +22,18 @@ import java.awt.event.ActionListener;
 
 public class DrawUi extends JFrame implements ActionListener{
 
-    private JButton[] buttonsArray;
+    private JLabel numberLabel = new JLabel("", SwingConstants.CENTER);
+    private String z, zt;
+    private Double result;
+
+    private double num1 = 0, num2 = 0;
+    private int op = 0;
 
     public DrawUi(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 550);
         this.setLocationRelativeTo(null);
         this.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-        buttonsArray = new JButton[20];
         
         Border mainBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         GridLayout mainGrid = new GridLayout(3, 3, 5, 5);
@@ -44,7 +48,6 @@ public class DrawUi extends JFrame implements ActionListener{
         topPanel.setBackground(Color.lightGray);
         topPanel.setPreferredSize(new Dimension(100, 50));
         topPanel.setLayout(new BorderLayout());
-        JLabel numberLabel = new JLabel("1000", SwingConstants.CENTER);
 
         JPanel midPanel = new JPanel();
         midPanel.setBackground(Color.blue); 
@@ -58,18 +61,6 @@ public class DrawUi extends JFrame implements ActionListener{
         buttonsPanel.setBounds(0, 0, 50, 100);
         buttonsPanel.setBorder(mainBorder);
 
-        JPanel operatorsPanel = new JPanel();
-        operatorsPanel.setBackground(Color.MAGENTA);
-        operatorsPanel.setLayout(new GridLayout(4, 1, 5, 30));
-        operatorsPanel.setBounds(100, 100, 100, 100);
-        operatorsPanel.setBorder(mainBorder);
-
-        JPanel topButtonsPanel = new JPanel();
-        topButtonsPanel.setBackground(Color.cyan);
-        topButtonsPanel.setLayout(new GridLayout(1, 4, 10, 5));
-        topButtonsPanel.setBounds(0, 0, 100, 100);
-        topButtonsPanel.setBorder(mainBorder);
-
         String[] buttonsLabel = {
             "CE", "back", "%", "/",
             "7", "8", "9", "*",
@@ -79,23 +70,12 @@ public class DrawUi extends JFrame implements ActionListener{
         };
 
         for (int i = 0; i <= 19; i++) {
-            /*JButton button = new JButton();
-            button.setFocusable(false);
-            button.setText(buttonsLabel[i]);
-            System.out.println("Command" + buttonsLabel[i]);
-            button.setActionCommand("Command" + buttonsLabel[i]);
-            button.setPreferredSize(new Dimension(50, 50));
-            buttonsPanel.add(button);*/
-
-            JButton btn = new JButton("Button " + (i + 1));
+            JButton btn = new JButton(buttonsLabel[i]);
             btn.addActionListener(this);
             btn.setActionCommand("Command" + buttonsLabel[i]);
-            buttonsArray[i] = btn;
             buttonsPanel.add(btn);
-            //buttonsPanel.add(new JButton(String.valueOf(i)));
         }
 
-        
 
         this.add(contentPanel);
         topPanel.add(numberLabel, BorderLayout.CENTER);
@@ -106,14 +86,86 @@ public class DrawUi extends JFrame implements ActionListener{
 
     }
 
+    // funcao para adicionar digitos ao numero exp: 1 + 1 = 11
+    public void addNumber(String n){
+        zt = numberLabel.getText();
+            z = zt + n;
+            numberLabel.setText(z);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        // numero 1, numero 2 e Operacao exp: -, +, *
 
         if (command.equals("CommandCE")) {
-            System.out.println(e.getSource() + e.getActionCommand());
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+            System.out.println("CE");
+        }
+        if (command.equals("Commandback")) {
+            System.out.println("CE");
+        }
+        if (command.equals("Command%")) {
+            System.out.println("CE");
+        }
+        if (command.equals("Command/")) {
+            System.out.println("CE");
+        }
+        if (command.equals("Command9")) {
+           addNumber("9");
+        }
+        if (command.equals("Command8")) {
+            addNumber("8");
+        }
+        if (command.equals("Command7")) {
+           addNumber("7");
+        }
+        if (command.equals("Command6")) {
+            addNumber("6");
+        }
+        if (command.equals("Command5")) {
+            addNumber("5");
+        }
+        if (command.equals("Command4")) {
+            addNumber("4");
+        }
+        if (command.equals("Command3")) {
+            addNumber("3");
+        }
+        if (command.equals("Command2")) {
+            addNumber("2");
+        }
+        if (command.equals("Command1")) {
+            addNumber("1");
+        }
+        if (command.equals("Command+")) {
+            num1 = Double.parseDouble(numberLabel.getText());
+            z = "";
+            numberLabel.setText(z);
+            op = 1;
+            System.out.println(op);
+        }
+        if (command.equals("Command+/-")) {
+            System.out.println("CE");
+        }
+        if (command.equals("Command0")) {
+            System.out.println("CE");
+        }
+        if (command.equals("CommandCE")) {
+            System.out.println("CE");
+        }
+        if (command.equals("Command.")) {
+            System.out.println("CE");
+        }
+        if (command.equals("Command=")) {
+
+            num2 = Double.parseDouble(numberLabel.getText());
+            System.out.println(op);
+
+            if(op == 1){
+                result = num1 + num2;
+                System.out.println(result);
+            }
+            numberLabel.setText(String.valueOf(result));
         }
     
     }

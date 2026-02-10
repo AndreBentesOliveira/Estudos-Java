@@ -99,15 +99,19 @@ public class DrawUi extends JFrame implements ActionListener{
         // numero 1, numero 2 e Operacao exp: -, +, *
 
         if (command.equals("CommandCE")) {
-            System.out.println("CE");
+            z = "";
+            numberLabel.setText(z);
+            num1 = 0;
+            num2 = 0;
+            result = 0.0;
         }
         if (command.equals("Commandback")) {
-            System.out.println("CE");
+            if (z != null && z.length() > 0){
+                z = z.substring(0, z.length() - 1);
+                numberLabel.setText(z);
+            }
         }
         if (command.equals("Command%")) {
-            System.out.println("CE");
-        }
-        if (command.equals("Command/")) {
             System.out.println("CE");
         }
         if (command.equals("Command9")) {
@@ -144,17 +148,51 @@ public class DrawUi extends JFrame implements ActionListener{
             op = 1;
             System.out.println(op);
         }
-        if (command.equals("Command+/-")) {
-            System.out.println("CE");
+
+         if (command.equals("Command-")) {
+            num1 = Double.parseDouble(numberLabel.getText());
+            z = "";
+            numberLabel.setText(z);
+            op = 2;
+            System.out.println(op);
         }
+          if (command.equals("Command/")) {
+            num1 = Double.parseDouble(numberLabel.getText());
+            z = "";
+            numberLabel.setText(z);
+            op = 3;
+            System.out.println(op);
+        }
+          if (command.equals("Command*")) {
+            try{
+                num1 = Double.parseDouble(numberLabel.getText());
+            }catch(NumberFormatException f){
+                numberLabel.setText("Invalid Format");
+                return;
+            }
+            z = "";
+            numberLabel.setText(z);
+            op = 4;
+        }
+
         if (command.equals("Command0")) {
             System.out.println("CE");
         }
-        if (command.equals("CommandCE")) {
+
+        if (command.equals("Command+/-")) {
             System.out.println("CE");
         }
+        
+       
         if (command.equals("Command.")) {
-            System.out.println("CE");
+            // se nao tiver . no numero adiciona o .
+            if (z != null && z != ""){
+                if (z.indexOf(".") == -1){
+                z = z + ".";
+                }
+            }
+            
+            numberLabel.setText(z);
         }
         if (command.equals("Command=")) {
 
@@ -163,6 +201,18 @@ public class DrawUi extends JFrame implements ActionListener{
 
             if(op == 1){
                 result = num1 + num2;
+                System.out.println(result);
+            }
+            if(op == 2){
+                result = num1 - num2;
+                System.out.println(result);
+            }
+            if(op == 3){
+                result = num1 / num2;
+                System.out.println(result);
+            }
+            if(op == 4){
+                result = num1 * num2;
                 System.out.println(result);
             }
             numberLabel.setText(String.valueOf(result));

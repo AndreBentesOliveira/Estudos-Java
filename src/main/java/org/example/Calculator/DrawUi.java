@@ -176,7 +176,7 @@ public class DrawUi extends JFrame implements ActionListener{
         }
 
         if (command.equals("Command0")) {
-            System.out.println("CE");
+            System.out.println("0");
         }
 
         if (command.equals("Command+/-")) {
